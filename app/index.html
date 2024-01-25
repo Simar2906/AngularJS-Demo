@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS Demo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="app.js"></script>
+</head>
+
+<body ng-app="demoApp" ng-controller="MainController">
+
+    <!-- ng-true-value and ng-false-value -->
+    <h3>ng-true-value and ng-false-value</h3>
+    <input type="checkbox" ng-model="isChecked" ng-true-value="'Yes'" ng-false-value="'No'">
+    <p>Checkbox Value: {{ isChecked }}</p>
+
+    <!-- ng-show and ng-hide -->
+    <h3>ng-show and ng-hide</h3>
+    <div ng-show="isChecked=='Yes'">This is shown using ng-show</div>
+    <div ng-hide="isChecked=='Yes'">This is hidden using ng-hide</div>
+
+    <!-- ng-click -->
+    <h3>ng-click</h3>
+    <button ng-click="handleClick()">Click me</button>
+    <p>Click Count: {{ clickCount }}</p>
+
+    <!-- ng-required -->
+    <h3>ng-required</h3>
+    <form name="userForm">
+        <input type="text" ng-model="username" ng-required="true" placeholder="Enter username" name="username">
+        <p ng-show="userForm.username.$dirty && userForm.username.$error.required" style="color: red;">Username is required</p>
+        <!-- <input type="submit" name="" id="" value="Click"> -->
+    </form>
+
+    <!-- ng-controller -->
+    <h3>ng-controller</h3>
+    <p>Message from MainController: {{message}}</p>
+    <p ng-controller="MyController">Message from controller: {{ message }}</p> <!--Scope-->
+
+    <!-- ng-app -->
+    <h3>ng-app</h3>
+    <p ng-app="innerApp">This is a separate AngularJS app using ng-app="innerApp"</p>
+
+    <!-- ng-repeat -->
+    <h3>ng-repeat</h3>
+    <ul>
+        <li ng-repeat="item in items">{{ item }}</li>
+    </ul>
+
+    <!-- ng-change -->
+    <h3>ng-change</h3>
+    <input type="text" ng-model="name" ng-change="handleChange()">
+    <p>Name changed: {{ isNameChanged }}</p>
+
+    <!-- Data Binding -->
+    <h3>Data Binding</h3>
+    <input type="text" ng-model="twoWayBinding">
+    <p>Two-way Binding: {{ twoWayBinding }}</p>
+
+    <!-- $index -->
+    <h3>$index</h3>
+    <ul>
+        <li ng-repeat="item in items">{{ $index + 1 }}: {{ item }}</li>
+    </ul>
+
+    <!-- $scope -->
+    <h3>$scope</h3>
+    <p>{{ messageFromScope }}</p>
+
+    <!-- $eval -->
+    <h3>$eval</h3>
+    <input type="text" ng-model="expression">
+    <p>Expression is: {{expression}}</p>
+    <button ng-click="evaluate()">Click Me!</button>
+    <p>Result of $eval: {{ $evalResult }}</p>
+
+    <!-- $http -->
+    <h3>$http</h3>
+    <ul>
+        <li ng-repeat="user in userFromHttp">{{ user.name }}</li>
+    </ul>
+
+    <!-- Filter Pipe -->
+    <h3>Filter Pipe</h3>
+    <input type="text" ng-model="searchText" placeholder="Filter items">
+    <ul>
+        <li ng-repeat="item in items | filter: searchText">{{ item }}</li>
+    </ul>
+    <h3>Custom Directive</h3>
+<simar-congratulator handle-click="handleClick()" users="users"></simar-congratulator>
+</body>
+
+</html>
