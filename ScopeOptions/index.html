@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS Directive Examples</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .directive-container {
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #333;
+        }
+    </style>
+    <script>
+        var app = angular.module('directiveExamples', []);
+
+        app.controller('MyController', function($scope) {
+            $scope.parentData = 'Initial Data';
+            $scope.parentValue = 'Initial Value';
+
+            $scope.parentFunction = function() {
+                alert('Parent function executed!');
+            };
+        });
+
+        app.directive('twoWayBindingDirective', function() {
+            return {
+                scope: {
+                    data: '='
+                },
+                template: '<div class="directive-container"><h2>Two-way Binding Directive</h2><input ng-model="data" /><div>{{ data }}</div></div>'
+            };
+        });
+
+        app.directive('textBindingDirective', function() {
+            return {
+                scope: {
+                    label: '@'
+                },
+                link:function(scope){
+                    console.log(scope.label);
+                },
+                template: '<div class="directive-container"><h2>Text Binding Directive</h2><div>{{ label }}</div></div>'
+            };
+        });
+
+        app.directive('oneWayBindingDirective', function() {
+            return {
+                scope: {
+                    value: '<'
+                },
+                link: function(scope){
+                    scope.value = 'Hello';
+                },
+                template: '<div class="directive-container"><h2>One-way Binding Directive</h2><div>{{ value }}</div></div>'
+            };
+        });
+
+        app.directive('expressionBindingDirective', function() {
+            return {
+                scope: {
+                    action: '&'
+                },
+                template: '<div class="directive-container"><h2>Expression Binding Directive</h2><button ng-click="action()">Click me</button></div>'
+            };
+        });
+    </script>
+</head>
+<body ng-app="directiveExamples" ng-controller="MyController">
+    <two-way-binding-directive data="parentData"></two-way-binding-directive>
+    <hr>
+    <text-binding-directive label="Parent Label"></text-binding-directive>
+    <hr>
+    <one-way-binding-directive value="parentData"></one-way-binding-directive>
+    <hr>
+    <expression-binding-directive action="parentFunction()"></expression-binding-directive>
+</body>
+</html>
